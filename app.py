@@ -18,13 +18,10 @@ def format_datetime(datetime_str, utc_offset, abbreviation):
     result = f"{formatted_date} ({utc_offset} {abbreviation})"
     return result
 
-def query_time():
-    update_ui = {
-        
-    }
+def query_time(ip):
     try:
         response = requests.get(
-            url="http://worldtimeapi.org/api/ip",
+            url=f"http://worldtimeapi.org/api/ip/{ip}",
             timeout=5
         )
 
@@ -74,6 +71,7 @@ def get_ip(web_request):
 
 @app.route("/")
 def index():
-    update_ui = query_time()
+    ip = get_ip(request)
+    update_ui = query_time(ip)
     timezones = get_timezones()
-    return render_template('index.html', update_ui=update_ui, timezones=timezones, ip=get_ip(request))
+    return render_template('index.html', update_ui=update_ui, timezones=timezones, ip=ip)
