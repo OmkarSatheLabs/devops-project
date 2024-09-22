@@ -20,19 +20,6 @@ spec:
         env:
         - name: PORT
           value: "8000"
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8000
-          initialDelaySeconds: 10
-          periodSeconds: 60
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8000
-          initialDelaySeconds: 5
-          periodSeconds: 60
-      restartPolicy: Always
 
 ---
 
