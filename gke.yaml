@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: gcp-devops-gke
-        image: 'gcr.io/decoded-shadow-429413-f3/gcpdevops-dev:latest'
+        image: 'gcr.io/$PROJECT_ID/gcpdevops-$BRANCH_NAME'
         ports:
         - containerPort: 8000
         env:
