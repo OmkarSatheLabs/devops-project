@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="mainpage">
+                <h1 class="header">Time App</h1>
+                <div class="time-details">
+                    <p class="time">{{update_ui.time}}</p>
+                    <h2>CURRENT TIME ZONE:</h2>
+                    <p class="time-zone">{{update_ui.timezone}}</p>
+
+                    <select id="select-time-zone">
+                        <option value="" disabled selected>
+                            Change time zone
+                        </option>
+                        {% for zone in timezones %}
+                        <option value="{{zone}}">{{zone}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <h2>LOCAL DATE/TIME:</h2>
+                    <p class="date-time">{{update_ui.datetime}}</p>
+
+                    <h2>Check by IP Address</h2>
+                    <form action="">
+                        <input
+                            type="text"
+                            placeholder="Enter valid ip address"
+                            id="ip-address"
+                            required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"
+                        />
+                        <button id="go-btn">GO</button>
+                    </form>
+
+                    <h2 class="current-ip">Current IP {{ip}}</h2>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

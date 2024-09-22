@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
       - name: gcp-devops-gke
-        image: 'gcr.io/decoded-shadow-429413-f3/gcpdevops-dev:latest'
+        image: 'gcr.io/$PROJECT_ID/gcpdevops-dev:latest'
         ports:
-        - containerPort: 5000
+        - containerPort: 8000
         env:
         - name: PORT
-          value: "5000"
+          value: "8000"
 
 ---
 
@@ -34,7 +34,7 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 5000
+    targetPort: 8000
   selector:
     app: gcp
   type: LoadBalancer
