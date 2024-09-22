@@ -1,21 +1,30 @@
 steps:
-  # build the container image
+  # Build the container image
 - name: "gcr.io/cloud-builders/docker"
-  args: ["build", "-t", "gcr.io/$PROJECT_ID/gcpdevops", "."]
+  args: ["build", "-t", "gcr.io/$PROJECT_ID/gcpdevops-$BRANCH_NAME", "."]
 
-  # push the container image
+  # Push the container image
 - name: "gcr.io/cloud-builders/docker"
-  args: ["push", "gcr.io/$PROJECT_ID/gcpdevops"]
+  args: ["push", "gcr.io/$PROJECT_ID/gcpdevops-$BRANCH_NAME"]
 
-  # deploy container image to GKE
+  # Step to replace variables in the gke.yaml file
+- name: 'ubuntu'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      sed -i "s/PROJECT_ID/$PROJECT_ID/g" gke.yaml
+      sed -i "s/BRANCH_NAME/$BRANCH_NAME/g" gke.yaml
+
+  # Deploy the container image to GKE
 - name: "gcr.io/cloud-builders/gke-deploy"
   args:
   - run
   - --filename=gke.yaml
-  - --image=gcr.io/$PROJECT_ID/gcpdevops
+  - --image=gcr.io/$PROJECT_ID/gcpdevops-$BRANCH_NAME
   - --location=us-central1-c
   - --cluster=gcp-devops-project
-  - --namespace=gcp-devops-prod
+  - --namespace=gcp-devops-$BRANCH_NAME
 
 options:
   logging: CLOUD_LOGGING_ONLY
