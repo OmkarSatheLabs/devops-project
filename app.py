@@ -64,8 +64,8 @@ def get_timezones():
 
 def get_ip(web_request):
     if 'X-Forwarded-For' in web_request.headers:
-        xforwardfor = web_request.headers['X-Forwarded-For']
-        return web_request.remote_addr + f" and X-Forwarded-For header value of {xforwardfor}"
+        xforwardfor = web_request.headers['X-Forwarded-For'].split(',')[0].strip()
+        return xforwardfor
     else:
         return web_request.remote_addr
 
