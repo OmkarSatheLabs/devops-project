@@ -13,8 +13,8 @@ steps:
   args:
     - '-c'
     - |
-      sed -i "s/\PROJECT_ID/$PROJECT_ID/g" gke.yaml
-      sed -i "s/\BRANCH_NAME/$BRANCH_NAME/g" gke.yaml
+      sed -i "s/PROJECT_ID/$PROJECT_ID/g" gke.yaml
+      sed -i "s/BRANCH_NAME/$BRANCH_NAME/g" gke.yaml
 
   # Deploy the container image to GKE
 - name: "gcr.io/cloud-builders/gke-deploy"
