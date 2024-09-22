@@ -17,7 +17,7 @@ steps:
       sed -i "s/\$BRANCH_NAME/${BRANCH_NAME}/g" gke.yaml
 
   # deploy container image to GKE
-- name: "gcr.io/cloud-builders/kubectl"
+- name: "gcr.io/cloud-builders/gke-deploy"
   args:
   - run
   - --filename=gke.yaml
